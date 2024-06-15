@@ -1,10 +1,12 @@
 ![STRIDE GPT Logo](logo.png)
 
-STRIDE GPT is an AI-powered threat modelling tool that leverages OpenAI's GPT models to generate threat models and attack trees for a given application based on the STRIDE methodology. Users provide application details, such as the application type, authentication methods, and whether the application is internet-facing or processes sensitive data. The GPT model then generates its output based on the provided information.
+STRIDE GPT is an AI-powered threat modelling tool that leverages Large Language Models (LLMs) to generate threat models and attack trees for a given application based on the STRIDE methodology. Users provide application details, such as the application type, authentication methods, and whether the application is internet-facing or processes sensitive data. The model then generates its output based on the provided information.
 
 ## Table of Contents
 - [Star the Repo](#star-the-repo)
 - [Features](#features)
+- [Roadmap](#roadmap)
+- [Talk at Open Security Summit](#talk-at-open-security-summit)
 - [Changelog](#changelog)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -18,24 +20,73 @@ If you find STRIDE GPT useful, please consider starring the repository on GitHub
 ## Features
 - Simple and user-friendly interface
 - Generates threat models based on the STRIDE methodology
+- Multi-modal: Use architecture diagrams, flowcharts, etc. as inputs for threat modelling 
 - Generates attack trees to enumerate possible attack paths
 - Suggests possible mitigations for identified threats
-- Utilises OpenAI's powerful GPT models for AI-driven threat analysis
+- 🆕 Supports DREAD risk scoring for identified threats
+- 🆕 Generates Gherkin test cases based on identified threats
 - No data storage; application details are not saved
-- Supports both OpenAI API and Azure OpenAI Service
+- Supports models accessed via OpenAI API, Azure OpenAI Service, Google AI API or Mistral API
 - Available as a Docker container image for easy deployment
+
+## Roadmap
+- [x] Add support for multi-modal threat modelling
+- [ ] Autogenerate application descriptions based on README files in GitHub repositories
+- [ ] Customisable and exportable reports (e.g. PDF, Word) that include the generated threat model, attack tree, and mitigations
+- [ ] Add a helper tool to guide users to create effective application descriptions before generating threat models
+- [ ] Update UI to support multiple languages
+
+## Talk at Open Security Summit
+
+In January 2024 I gave a talk about STRIDE GPT at the [Open Security Summit](https://open-security-summit.org/sessions/2024/mini-summits/jan/threat-modeling/ai-driven-threat-modelling-with-stride-gpt/). During the talk, I discussed the project's inception, its core functionalities, recent updates, and some future plans. You can watch the full presentation below:
+
+[![Open Security Summit Talk](https://i3.ytimg.com/vi/_eOcezCeM1M/maxresdefault.jpg)](https://youtu.be/_eOcezCeM1M?si=88bjQ2M-_sCyIioi)
+
+This video is an excellent resource for anyone interested in understanding how STRIDE GPT works and how it can be used to improve threat modelling.
 
 ## Changelog
 
+### Version 0.8 (latest)
+
+Version 0.8 introduces new features and improvements that enhance STRIDE GPT's capabilities and user experience. Here's what's new:
+
+- **DREAD Risk Scoring**: STRIDE GPT now supports DREAD risk scoring, allowing users to assign risk scores to identified threats based on the DREAD model. This feature provides a more comprehensive threat assessment and helps prioritise mitigation efforts.
+
+- **Gherkin Test Cases**: Users can now generate Gherkin test cases based on the identified threats. This feature helps bridge the gap between threat modelling and testing, ensuring that security considerations are integrated into the testing process.
+
+- **UI Enhancements**: I've refreshed the user interface making it easier to navigate and interact with the application and its features.
+
+### Version 0.7
+
+Release highlights:
+
+- **Multi-Modal Threat Modelling**: STRIDE GPT now supports multi-modal threat modelling using OpenAI's GPT-4o and GPT-4-Turbo models. Users can provide an image of an architecture diagram, flowchart, or other visual representations of their application to enhance the threat modelling process.
+- **Google AI Integration**: I've added support for Gemini 1.5 Pro via the Google AI API. Please note that Gemini doesn't consistently generate JSON output so you may need to retry some requests. In addition, Attack Trees can't be generated using Google AI models because of Google's safety restrictions.
+- **Refactored Codebase**: I've refactored some parts of the codebase to improve maintainability and readability. This should make it easier to add new features and enhancements in future releases.
+- **Bug Fixes**: Minor bug fixes and error handling improvements.
+
+
+### Version 0.6
+
+Release highlights:
+
+- **Mistral API Integration**: Users can now choose to use LLMs provided by Mistral AI to generate threat models, attack trees and mitigation suggestions. This provides an alternative to OpenAI's GPT models, offering greater flexibility and choice for users.
+
+- **Refined Prompts**: With more people using STRIDE GPT for work, I've updated the threat model prompt templates to encourage the LLMs to generate more comprehensive outputs. Users should now see multiple threats identified within each STRIDE category.
+
+- **Public Roadmap**: I've created a public roadmap to provide visibility into upcoming features and improvements.
+
+- **UI Enhancements**: I've made some minor updates to the UI to accommodate the new Mistral API integration and improve the overall user experience.
+
+<details>
+  <summary>Click to view release notes for earlier versions.</summary>
+
 ### Version 0.5
 
-Version 0.5 brings some enhancements that significantly extend STRIDE GPT's utility and ease of use for businesses, especially those using Azure. Here's what's new:
+Release highlights:
 
-- **Azure OpenAI Service Integration**: Users can now opt to use OpenAI 1106-preview models hosted on the Azure OpenAI Service, in addition to the standard OpenAI API. This integration provides businesses with a seamless and secure way to incorporate STRIDE GPT into their existing Azure ecosystems, benefitting from established commercial and confidentiality agreements. This is especially valuable for those wanting to include sensitive data in their threat models since, when STRIDE GPT is also run from Azure, it ensures that application descriptions and other data do not leave the Azure environment.
-
-- **Docker Container Image**: To make it easier to deploy STRIDE GPT on public and private clouds, the tool is now available as a [Docker container image](https://hub.docker.com/repository/docker/mrwadams/stridegpt/general) on Docker Hub. This is particularly beneficial for businesses and other users seeking a quick and secure way to run STRIDE GPT on their existing infrastructure.
-
-These updates are designed to enhance STRIDE GPT's adaptability and user-friendliness, particularly for users that don't want to utilise the OpenAI API directly. I hope you find the new features valuable and look forward to hearing your feedback on them.
+- **Azure OpenAI Service Integration**: Users can now opt to use OpenAI 1106-preview models hosted on the Azure OpenAI Service, in addition to the standard OpenAI API.
+- **Docker Container Image**: To make it easier to deploy STRIDE GPT on public and private clouds, the tool is now available as a [Docker container image](https://hub.docker.com/repository/docker/mrwadams/stridegpt/general) on Docker Hub.
 
 ### Version 0.4
 
@@ -57,10 +108,6 @@ Release highlights:
 - **Updated GPT Models**: STRIDE GPT now supports the latest 0613 versions of the GPT-3.5-turbo and GPT-4 models. These updated models provide improved performance and increased control over the generated output.
 - **Bug Fixes and Performance Enhancements**: I've addressed several bugs and made performance improvements to ensure a more stable and responsive application.
 
-
-<details>
-  <summary>Click to view release notes for earlier versions.</summary>
-  
 ### Version 0.2
 
 Release highlights:

@@ -1,4 +1,6 @@
 .gitignore
 api_key.txt
 venv/
-demo_videos/
+__pycache__/
+test_functions.py
+

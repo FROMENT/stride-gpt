@@ -1,2 +1,4 @@
+google.generativeai
+mistralai
 openai
 streamlit
